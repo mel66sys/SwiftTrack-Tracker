@@ -1,12 +1,27 @@
 body {
     font-family: 'Montserrat', sans-serif; /* Using a Google Font */
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* CRITICAL: Stacks header, content, and footer vertically */
+    justify-content: flex-start; /* Aligns content to the top */
     align-items: center;
     min-height: 100vh;
     margin: 0;
     background: linear-gradient(to right, #6dd5ed, #2193b0); /* Gradient background */
     color: #333;
+    /* Ensure body takes up 100% width for fixed elements */
+    width: 100%; 
+}
+
+/* Ensures the main content fills the space between header and footer */
+.content-wrapper {
+    flex-grow: 1; /* Allows the content to expand and push the footer down */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top to prevent container floating too high */
+    width: 100%;
+    padding-top: 100px; /* Space for the fixed header */
+    padding-bottom: 70px; /* Space for the fixed footer */
+    box-sizing: border-box;
 }
 
 .container {
@@ -17,6 +32,42 @@ body {
     text-align: center;
     width: 400px; /* Slightly wider */
     max-width: 90%; /* Responsive up to 90% of screen width */
+    border: 1px solid #e0e0e0; /* Subtle border for separation */
+}
+
+/* Styles for the Fixed Header Navigation */
+.main-nav {
+    position: fixed; /* Keeps the header at the top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000; /* Ensures it stays above other elements */
+    box-sizing: border-box;
+}
+
+.nav-logo {
+    font-weight: 700;
+    font-size: 1.4em;
+    color: #2193b0;
+    text-decoration: none;
+}
+
+.main-nav nav a {
+    margin-left: 25px;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.main-nav nav a:hover {
+    color: #007bff;
 }
 
 .tracker-header {
@@ -107,78 +158,24 @@ button:active {
 }
 
 /* Specific colors for status messages */
-#statusResult[style*="color: green"] {
+#statusResult[style*="color: rgb(40, 167, 69)"] { /* Green (#28a745) */
     background-color: #d4edda; /* Light green background */
     border-color: #28a745; /* Green border */
 }
 
-#statusResult[style*="color: orange"] {
+#statusResult[style*="color: rgb(255, 193, 7)"] { /* Orange (#ffc107) */
     background-color: #fff3cd; /* Light orange background */
     border-color: #ffc107; /* Orange border */
 }
 
-#statusResult[style*="color: red"] {
+#statusResult[style*="color: rgb(0, 123, 255)"] { /* Blue (#007bff) */
+    background-color: #cfe2ff; /* Light blue background */
+    border-color: #007bff; /* Blue border */
+}
+
+#statusResult[style*="color: rgb(220, 53, 69)"] { /* Red (#dc3545) */
     background-color: #f8d7da; /* Light red background */
     border-color: #dc3545; /* Red border */
-}
-
-/* Optional: small screen adjustments */
-@media (max-width: 500px) {
-    .container {
-        padding: 30px;
-    }
-    h1 {
-        font-size: 1.8em;
-    }
-    .logo {
-        width: 40px;
-        height: 40px;
-    }
-}/* --- NEW STYLES FOR HEADER AND FOOTER --- */
-
-/* Ensures the main content fills the space between header and footer */
-.content-wrapper {
-    flex-grow: 1; /* Allows the content to expand and push the footer down */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding-top: 80px; /* Space for the fixed header */
-    padding-bottom: 50px; /* Space for the footer */
-}
-
-/* Styles for the Fixed Header Navigation */
-.main-nav {
-    position: fixed; /* Keeps the header at the top */
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #ffffff; 
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 15px 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000; /* Ensures it stays above other elements */
-}
-
-.nav-logo {
-    font-weight: 700;
-    font-size: 1.4em;
-    color: #2193b0;
-    text-decoration: none;
-}
-
-.main-nav nav a {
-    margin-left: 25px;
-    color: #333;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s;
-}
-
-.main-nav nav a:hover {
-    color: #007bff;
 }
 
 /* Styles for the Footer */
@@ -192,6 +189,8 @@ button:active {
     position: fixed; /* Fixes footer to the bottom */
     bottom: 0;
     left: 0;
+    box-sizing: border-box;
+    z-index: 1000;
 }
 
 .main-footer a {
@@ -203,10 +202,23 @@ button:active {
     text-decoration: underline;
 }
 
-/* --- VISUAL TWEAK: Making the container look slightly better --- */
-.container {
-    /* Existing styles remain, just ensure this one is set */
-    max-width: 90%; 
-    /* Adding a subtle border for separation */
-    border: 1px solid #e0e0e0;
+
+/* Optional: small screen adjustments */
+@media (max-width: 500px) {
+    .container {
+        padding: 30px;
+    }
+    h1 {
+        font-size: 1.8em;
+    }
+    .logo {
+        width: 40px;
+        height: 40px;
+    }
+    .main-nav {
+        padding: 15px 20px;
+    }
+    .main-nav nav a {
+        margin-left: 15px;
+    }
 }
